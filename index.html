@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Soomaali - Kaaliyahaaga</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .chat-container { width: 100%; max-width: 600px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        #chat-box { height: 400px; border: 1px solid #ddd; padding: 15px; overflow-y: scroll; border-radius: 10px; background: #fafafa; margin-bottom: 10px; }
+        .input-area { display: flex; gap: 10px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 20px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #219150; }
+        .user-msg { text-align: right; color: blue; margin: 5px; }
+        .ai-msg { text-align: left; color: green; margin: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2>🤖 AI Soomaali</h2>
+    <div id="chat-box"></div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Wax i weydii..." onkeypress="handleEnter(event)">
+        <button onclick="sendMessage()">Dir</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        let input = document.getElementById("userInput");
+        let chatBox = document.getElementById("chat-box");
+        let text = input.value.trim();
+
+        if (text === "") return;
+
+        // Muuji farriinta qofka
+        chatBox.innerHTML += `<div class="user-msg">👤: ${text}</div>`;
+        input.value = "";
+
+        // Jawaabta AI (Halkan ayaad ku kordhin kartaa ereyo kale)
+        setTimeout(() => {
+            let response = generateResponse(text);
+            chatBox.innerHTML += `<div class="ai-msg">🤖 AI: ${response}</div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 500);
+    }
+
+    function generateResponse(text) {
+        let t = text.toLowerCase();
+        if (t.includes("magacaaga")) return "Magacaygu waa AI-Soomaali, waxaan ahay kaaliyahaaga dhijitaalka ah.";
+        if (t.includes("maxaad qabataa")) return "Waxaan ku caawin karaa xog, qoraal, iyo inaan kula sheekaysto.";
+        if (t.includes("salam") || t.includes("maxaad tahay")) return "Ma nabad baa? Waan fiicanahay, maxaan kuu qabtaa maanta?";
+        return "Aad baan u raali gelinayaa, su'aashan si qoto dheer uma fahmin, laakiin waan baranayaa afka Soomaaliga.";
+    }
+
+    function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+</script>
+
+</body>
+</html>
